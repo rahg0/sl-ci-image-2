@@ -10,14 +10,18 @@ jobs:
     name: Orca Container Image Scan
     runs-on: ubuntu-latest
     env:
+      IMAGE_NAME: gh-act-image
       PROJECT_KEY: slrk
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
+     
+      - name: Docker Image Build
+        run: docker build -t $IMAGE_NAME .
 
       - name: Run Orca Container Image Scan
         uses: orcasecurity/shiftleft-container-image-action@v1
         with:
           api_token: ${{ secrets.ORCA_SECURITY_API_TOKEN }}
           project_key: ${{ env.PROJECT_KEY }}
-          image: alpine
+          image: ${IMAGE_NAME}
