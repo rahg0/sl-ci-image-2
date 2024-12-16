@@ -1,1 +1,1 @@
-# -sl-ci-image-2
+# sl-ci-image-2
