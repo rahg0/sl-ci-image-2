@@ -21,7 +21,7 @@ jobs:
           docker build -t $IMAGE_NAME .
           docker image ls
           docker save $IMAGE_NAME > $HOME/converted.tar
-          ls -lah /tmp/
+          ls -lah $HOME
           
       - name: Run Orca Image Scan on Tar Archive
         uses: orcasecurity/shiftleft-container-image-action@v1
