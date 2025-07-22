@@ -20,6 +20,14 @@ jobs:
         run: |
           docker build -t $IMAGE_NAME .
           docker image ls
+          docker save $IMAGE_NAME > /tmp/converted.tar
+          
+      - name: Run Orca Image Scan on Tar Archive
+        uses: orcasecurity/shiftleft-container-image-action@v1
+        with:
+          api_token: ${{ secrets.ORCA_SECURITY_API_TOKEN }}
+          project_key: ${{ env.PROJECT_KEY }}
+          tar_archive: /tmp/converted.tar
 
       - name: Run Orca Container Image Scan
         uses: orcasecurity/shiftleft-container-image-action@v1
@@ -28,3 +36,4 @@ jobs:
           project_key: ${{ env.PROJECT_KEY }}
           image: ${{ env.IMAGE_NAME }}
 
+      
